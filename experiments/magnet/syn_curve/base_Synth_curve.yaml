@@ -1,0 +1,55 @@
+import:
+    - 'experiments/base.yaml'
+package:
+    - 'decoders.seg_detector_loss'
+define:
+  - name: train_data
+    class: ImageDataset
+    data_dir:
+        - '/datasets/synth_curve/'
+    data_list:
+        - '/datasets/CTW1500/train_list.txt'
+    load_memory: False
+    processes:
+        - class: RandomCropFlip
+        - class: RandomResizeScale
+          size: 640
+          ratio: [0.375, 2.5]
+        - class: RandomResizedCrop 
+        - class: RotatePadding
+          up: 60
+          colors: True
+        - class: ResizeLimitSquare
+          size: 640
+          ratio: 0.6
+        - class: RandomMirror
+        - class: RandomDistortion
+          transform_dict: {'brightness': 0.5, 'contrast': 0.5, 'sharpness': 0.8386, 'color': 0.5}
+        - class: Normalize
+          means: [0.485, 0.456, 0.406]
+          stds: [0.229, 0.224, 0.225]
+    processes2:       
+        - class: MakeICDARData
+        # - class: MakeSegDetectionData
+        - class: MakeFBShrinkMap
+          sr: 0.25
+        - class: MakeMagnetv2Map
+        - class: MakeSegOriData
+        - class: FilterKeys
+          superfluous: ['polygons', 'filename', 'shape', 'ignore_tags', 'is_training']
+
+  - name: validate_data
+    class: ImageDataset
+    data_dir:
+        - '/datasets/CTW1500/'
+    data_list:
+        - '/datasets/CTW1500/test_list.txt'
+    processes:
+        - class: ResizeSquare
+          size: [640, 1024]
+        - class: Normalize
+          means: [0.485, 0.456, 0.406]
+          stds: [0.229, 0.224, 0.225]
+    processes2:
+        - class: MakeICDARData
+        - class: MakeSegDetectionData

@@ -1,0 +1,83 @@
+import:
+    - 'experiments/magnet/syn_curve/base_Synth_curve.yaml'
+package: []
+define:
+  - name: 'Experiment'
+    class: Experiment
+    structure: 
+        class: Structure
+        builder: 
+            class: Builder
+            model: SegDetectorModel
+            model_args:
+                backbone: df_res50_3
+                decoder: DisOri3
+                decoder_args: 
+                    adaptive: True
+                    in_channels: [256, 512, 1024, 2048]
+                    inner_channels: 256
+                loss_class: DisOriFocusLoss
+
+        representer:
+            class: SegDetectorRepresenter
+            max_candidates: 1000
+        measurer:  
+            class: QuadMeasurer
+        visualizer:  
+            class: SegDetectorVisualizer
+    train: 
+        class: TrainSettings
+        data_loader: 
+            class: DataLoader
+            dataset: ^train_data
+            batch_size: 16
+            num_workers: 16
+        checkpoint: 
+            class: Checkpoint
+            start_epoch: 0
+            start_iter: 0
+            resume: null
+        model_saver: 
+            class: ModelSaver
+            dir_path: model
+            save_interval: 10000
+            signal_path: save
+        scheduler: 
+            class: OptimizerScheduler
+            optimizer: "Adam"
+            optimizer_args:
+                lr: 0.0001
+                # momentum: 0.9
+                # weight_decay: 0.0001
+            learning_rate:  
+                # class: WarmupLR
+                # steps: 4000
+                # warmup_lr: 0.007
+                # origin_lr: 
+                class: DecayLearningRateStep
+                epochs: 10
+                ci: 9956
+                lr : 0.0001
+        epochs: 10
+
+    validation: &validate
+        class: ValidationSettings
+        data_loaders:
+            icdar2015: 
+                class: DataLoader
+                dataset: ^validate_data
+                batch_size: 1
+                num_workers: 8
+                collect_fn:
+                    class: ICDARCollectFN
+        visualize: false
+        interval: 62
+        exempt: 6200
+
+    logger:
+        class: Logger
+        verbose: true
+        level: info
+        log_interval: 62
+
+    evaluation: *validate
