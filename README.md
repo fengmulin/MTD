@@ -5,8 +5,8 @@ Pull Pole Points to Text Contour by Magnetism: A Real-Time Scene Text Detector
 ## Environment
 The environment, datasets, and usage are based on: [DBNet](https://github.com/MhLiao/DB)
 ```bash
-conda create -n RDB python==3.9
-conda activate RDB
+conda create -n MTD python==3.9
+conda activate MTD
 
 conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
 
@@ -21,16 +21,16 @@ python setup.py build_ext --inplace
 
 ## Evaluate the performance
 ```
-CUDA_VISIBLE_DEVICES=0 python eval.py experiments/rdb/mpsc/res18.yaml --box_thresh 0.5 --resume workspace/mpsc/mpsc_res18
-CUDA_VISIBLE_DEVICES=1 python eval.py experiments/rdb/total/res50.yaml --box_thresh 0.65 --polygon --resume workspace/total/total_res50
-CUDA_VISIBLE_DEVICES=0 python eval.py experiments/rdb/td500/res50.yaml --box_thresh 0.45 --resume workspace/td500/td500_res50
-CUDA_VISIBLE_DEVICES=2 python eval.py experiments/rdb/ic15/res50.yaml --box_thresh 0.55 --resume workspace/ic15/ic15_res50
-CUDA_VISIBLE_DEVICES=0 python eval.py experiments/rdb/ctw/res50.yaml --box_thresh 0.5 --thresh 0.15 --polygon --resume workspace/ctw/ctw_res50
+CUDA_VISIBLE_DEVICES=0 python eval.py experiments/magnet/mpsc/res18.yaml --box_thresh 0.5 --resume workspace/mpsc/mpsc_res18
+CUDA_VISIBLE_DEVICES=1 python eval.py experiments/magnet/total/res50.yaml --box_thresh 0.65 --polygon --resume workspace/total/total_res50
+CUDA_VISIBLE_DEVICES=0 python eval.py experiments/magnet/td500/res50.yaml --box_thresh 0.45 --resume workspace/td500/td500_res50
+CUDA_VISIBLE_DEVICES=2 python eval.py experiments/magnet/ic15/res50.yaml --box_thresh 0.55 --resume workspace/ic15/ic15_res50
+CUDA_VISIBLE_DEVICES=0 python eval.py experiments/magnet/ctw/res50.yaml --box_thresh 0.5 --thresh 0.15 --polygon --resume workspace/ctw/ctw_res50
 ```
 
 ## Evaluate the speed 
 
-```CUDA_VISIBLE_DEVICES=0 python eval.py experiments/rdb/mpsc/res18.yaml --box_thresh 0.5 --resume workspace/mpsc/mpsc_res18 --speed```
+```CUDA_VISIBLE_DEVICES=0 python eval.py experiments/magnet/mpsc/res18.yaml --box_thresh 0.5 --resume workspace/mpsc/mpsc_res18 --speed```
 
 
 ## Training
