@@ -41,7 +41,7 @@ CUDA_VISIBLE_DEVICES=0 python eval.py experiments/magnet/ctw/res50.yaml --box_th
 Thanks to [DBNet](https://github.com/MhLiao/DB) and [TextBPN++](https://github.com/GXYM/TextBPN-Plus-Plus) for a standardized training and inference framework. 
 
 ## Models
-MTD trained models [Google Drive](https://drive.google.com/file/d/13A-oL912cyD0tKbqu3SQiAf4WaTf4gfp/view?usp=drive_link).
+MTD trained models [Google Drive](https://drive.google.com/drive/folders/1ba8nhZygcGAXap_gJz9q-idnlZ7AvZ2U?usp=drive_link).
 
 
 
