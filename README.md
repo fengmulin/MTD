@@ -1,5 +1,4 @@
 # MTD
-# RDB
 
 Pull Pole Points to Text Contour by Magnetism: A Real-Time Scene Text Detector
 
