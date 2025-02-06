@@ -10,8 +10,8 @@ conda activate MTD
 
 conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
 
-git clone https://github.com/fengmulin/RDB.git
-cd RDB/
+git clone https://github.com/fengmulin/MTD.git
+cd MTD/
 
 echo $CUDA_HOME
 cd assets/ops/dcn/
